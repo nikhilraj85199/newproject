@@ -80,7 +80,19 @@ public class UserProductsController {
             return "error";
         }
 
-        List<Product> products = productService.getProductsByCategory(category);
+     // Get all descendant categories
+        List<Category> descendantCategories = categoryService.getAllDescendantCategories(category);
+        
+     // Add the parent category itself to the list of categories
+        descendantCategories.add(category);
+        
+     // Collect products from all categories
+        List<Product> products = descendantCategories.stream()
+            .flatMap(cat -> productService.getProductsByCategory(cat).stream())
+            .distinct()
+            .collect(Collectors.toList());
+        
+        
         List<Deal> deals = dealService.getAllDeals();
         
         Map<Integer, Double> averageRatings = new HashMap<>();

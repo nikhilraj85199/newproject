@@ -79,6 +79,11 @@ public class Category {
 			super();
 			// TODO Auto-generated constructor stub
 		}
+
+		public List<Category> getChildren() {
+			// TODO Auto-generated method stub
+			return null;
+		}
     
 	    
 }

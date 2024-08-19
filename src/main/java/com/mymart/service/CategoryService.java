@@ -1,5 +1,6 @@
 package com.mymart.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,11 +43,26 @@ public class CategoryService {
 
 
 
+	public List<Category> getAllDescendantCategories(Category parentCategory) {
+        List<Category> allDescendants = new ArrayList<>();
+        collectDescendants(parentCategory, allDescendants);
+        return allDescendants;
+    }
+
+    private void collectDescendants(Category parentCategory, List<Category> descendants) {
+        List<Category> children = parentCategory.getChildren(); // Assuming a method to get children
+        if (children != null) {
+            for (Category child : children) {
+                descendants.add(child);
+                collectDescendants(child, descendants);
+            }
 
 
 
 
-
+        }
+        
+    }
 
 	
 }
